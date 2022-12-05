@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: pihole
 
 resources:
-  - pihole-https/
+  - pihole/

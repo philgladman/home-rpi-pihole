@@ -28,11 +28,11 @@ then run the following command to turn this off to free up port 53 for pihole `s
 - label master node so pihole container will only run on master node since that is where we want the persistent data to be stored `kubectl label nodes $(hostname) disk=disk1`
 - clone this repo `git clone https://github.com/philgladman/home-rpi-pihole.git`
 - cd into repo `cd home-rpi-pihole`
-- Create password for pihole (replace `testpassword` below with a custom password of your choice) `echo -n "testpassword" > pihole-https/pihole-pass`
+- Create password for pihole (replace `testpassword` below with a custom password of your choice) `echo -n "testpassword" > pihole/pihole-pass`
 - after we deploy pihole, we will create a local DNS name for our pihole server, inorder to acces the UI by a DNS name vs ip. For now we need to update the value in our ingress file to the DNS name that you come up with. In my example I use `pihole.phils-home.com`. You can use anything as this will only be accessible locally.
-- change pihole ingress name to your custom DNS name for pihole server `sed -i "s|pihole.phils-home.com|<your-local-dns-namme-for-pihole>|g" pihole-https/pihole-ingress.yaml`
-- change metallb ipaddress that will be used for by pihole `sed -i "s|192.168.1.202|<your-available-metallb-ip>|g" pihole-https/pihole-svc.yaml`
-- change timezone in pihole to your local timezone `sed -i "s|America/New_York|<your-local-timezone>|g" pihole-https/pihole-cm.yaml`
+- change pihole ingress name to your custom DNS name for pihole server `sed -i "s|pihole.phils-home.com|<your-local-dns-namme-for-pihole>|g" pihole/pihole-ingress.yaml`
+- change metallb ipaddress that will be used for by pihole `sed -i "s|192.168.1.202|<your-available-metallb-ip>|g" pihole/pihole-svc.yaml`
+- change timezone in pihole to your local timezone `sed -i "s|America/New_York|<your-local-timezone>|g" pihole/pihole-cm.yaml`
 - Deploy pihole `kubectl apply -k .` 
 - Wait for pod to spin up
 - For now we will need to port forward pihole on our local machine until we have our pihole local DNS name configured, `kubectl port-forward svc/pihole-ui-svc 8082:8082 -n pihole`.
