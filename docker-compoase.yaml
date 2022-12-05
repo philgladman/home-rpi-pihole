@@ -1,0 +1,13 @@
+docker run -d \
+--name pihole \
+-p 53:53/tcp -p 53:53/udp \
+-p 80:80 \
+-e TZ="America/New_York" \
+-v /mnt/pihole/pihole/:/etc/pihole/ \
+-v /mnt/pihole/dnsmasq.d/:/etc/dnsmasq.d/ \
+--dns=127.0.0.1 --dns=1.1.1.1 \
+--restart=unless-stopped \
+docker.io/pihole/pihole:latest
+
+sudo mkdir /mnt/pihole/pihole/
+sudo mkdir /mnt/pihole/dnsmasq.d/

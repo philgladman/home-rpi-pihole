@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pihole
+
+secretGenerator:
+  - name: pihole-pass
+    files:
+    - pihole-pass
+
+resources:
+  - deployment.yaml
+  - dnsmasq-pv.yaml
+  - dnsmasq-pvc.yaml
+  - pihole-cm.yaml
+  - pihole-ns.yaml
+  - pihole-pv.yaml
+  - pihole-pvc.yaml
+  - storageClass.yaml
+  - svc.yaml
