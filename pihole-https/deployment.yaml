@@ -43,6 +43,32 @@ spec:
             mountPath: /etc/pihole
           - name: dnsmasq
             mountPath: /etc/dnsmasq.d
+      - name: cloudflare-proxy-dns
+        image: docker.io/cloudflare/cloudflared:latest
+        args: 
+        - "proxy-dns"
+        - "--address"
+        - "0.0.0.0"
+        - "--port"
+        - "5053"
+        - "--metrics"
+        - "0.0.0.0:8000"
+        - "--max-upstream-conns"
+        - "0"
+        - "--upstream"
+        - "https://1.1.1.1/dns-query"
+        - "--upstream"
+        - "https://1.0.0.1/dns-query"
+        ports:
+        - name: svc-53-udp
+          containerPort: 5053
+          protocol: UDP
+        - name: svc-53-tcp
+          containerPort: 5053
+          protocol: TCP
+        - name: svc-metrics
+          containerPort: 8000
+          protocol: TCP
       volumes:
         - name: pihole
           persistentVolumeClaim:

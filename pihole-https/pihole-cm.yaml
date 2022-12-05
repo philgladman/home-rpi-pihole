@@ -4,6 +4,6 @@ metadata:
   name: pihole-configmap
 data:
   TZ: "America/New_York"
-  DNS1: "1.1.1.1"
-  DNS2: "1.1.1.1"
+  DNS1: "127.0.0.1#5053"
+  DNS2: "127.0.0.1#5053"
   # ADMIN_EMAIL: "<admin@example.com>"
