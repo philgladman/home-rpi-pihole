@@ -17,5 +17,5 @@ resources:
   - pihole-ns.yaml
   - pihole-pv.yaml
   - pihole-pvc.yaml
+  - pihole-svc.yaml
   - storageClass.yaml
-  - svc.yaml
