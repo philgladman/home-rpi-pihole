@@ -30,6 +30,7 @@ then run the following command to turn this off to free up port 53 for pihole `s
 - create sysmbolic link `sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 - reboot to apply changes `sudo systemctl reboot`
 - confirm systemd-resolver is no longer using port 53 `sudo lsof -i :53`
+- may have to update your /etc/hosts with `1270.0.0.1 <your-hostname>
 
 ## Step 2.) - Configure and install Pihole
 - Create the directories below on the master node in order to persist our pihole data.
@@ -45,14 +46,15 @@ then run the following command to turn this off to free up port 53 for pihole `s
 - change timezone in pihole to your local timezone `sed -i "s|America/New_York|<your-local-timezone>|g" pihole/pihole-cm.yaml`
 - Deploy pihole `kubectl apply -k .` 
 - Wait for pod to spin up
-- For now we will need to port forward pihole on our local machine until we have our pihole local DNS name configured, `kubectl port-forward svc/pihole-ui-svc 8082:8082 -n pihole`.
+- For now we will need to port forward pihole on our local machine until we have our pihole local DNS name configured, `kubectl port-forward svc/pihole-ui-svc 80:8082 -n pihole`.
 - Access pihole in the browser `localhost:8082/admin`
 - Login with the password you made earlier
 - On the left bar, click on `Local DNS`, and then click on `DNS Records`.
 - In the `Domain:` field, type in your custom DNS name for pihole server (ex = `pihole.phils-home.com`)
-- For the `IP Address:` field, type in the output to the following command `kubectl get ing -n pihole -o jsonpath='{.items[].status.loadBalancer.ingress[].ip}'`, this should be the ip address of your metallb.
+- For the `IP Address:` field, type in the output to the following command `kubectl get ing -n pihole -o jsonpath='{.items[].status.loadBalancer.ingress[].ip}'`, this should be the ip address of your nginx ingress.
 - Click `add`
-- now you should be able to access your pihole by this custom DNS name, without having to port forward
+- Now you just need to configure your router or your host to use the ip address of the udp/tcp pihole service as its DNS Server. You can get this ip address by running this command `kubectl get svc -n pihole pihole-dns-udp -o yaml -o jsonpath='{.status.loadBalancer.ingress[].ip}'`
+- Once you have updated your DNS on your host to point to pihole, you should be able to access your pihole by this custom DNS name, without having to port forward
 - Enter `ctrl+c` on your terminal tab that is port forwarding to cancel the port forward.
 - In your browser, connect to your pihole custome DNS name (ex = `pihole.phils-home.com/admin`) and login.
-- Pihole is up and running! Now you just need to configure your router or your host to use this the ip address of the udp/tcp pihole service as its DNS Server. You can get this ip address by running this command `kubectl get svc -n pihole pihole-dns-udp -o yaml -o jsonpath='{.status.loadBalancer.ingress[].ip}'`
+- Pihole is up and running! Dont forget to configure your router or host to use pihole as its DNS Server.
