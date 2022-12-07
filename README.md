@@ -30,7 +30,7 @@ then run the following command to turn this off to free up port 53 for pihole `s
 - create sysmbolic link `sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 - reboot to apply changes `sudo systemctl reboot`
 - confirm systemd-resolver is no longer using port 53 `sudo lsof -i :53`
-- may have to update your /etc/hosts with `127.0.0.0.1 <your-hostname>
+- may have to update your /etc/hosts with `127.0.0.0.1 <your-hostname>`
 
 ## Step 2.) - Configure and install Pihole
 - Create the directories below on the master node in order to persist our pihole data.
