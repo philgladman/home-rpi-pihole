@@ -15,7 +15,7 @@ Raspberry pi pihole DNS add blocker for home environment
   - Spin up K3s
   - Install MetalLb
   - Install Nginx Ingress
-- If you already have a Raspberry pi configured with K3s, MetalLb, and Nginx ingress, please move on to [Step 1.)](/README.md#step-1---turn-off-systemd-resolver-(ubuntu))
+- If you already have a Raspberry pi configured with K3s, MetalLb, and Nginx ingress, please move on to [Step 1.)](README.md#step-1---turn-off-systemd-resolver-ubuntu)
 
 ## Step 1.) - Turn off systemd-resolver (Ubuntu)
 - If using ubuntu, check if systemd-resolver is running and using port 53 `sudo lsof -i :53`.
