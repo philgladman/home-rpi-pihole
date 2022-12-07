@@ -42,7 +42,7 @@ metadata:
     app: pihole
   name: pihole-dns-udp
   annotations:
-    metallb.universe.tf/allow-shared-ip: 192.168.1.202
+    metallb.universe.tf/allow-shared-ip: 192.168.1.x
 spec:
   selector:
     app: pihole
@@ -56,7 +56,7 @@ spec:
 status:
   loadBalancer:
     ingress:
-    - ip: 192.168.1.202
+    - ip: 192.168.1.x
 ---
 apiVersion: v1
 kind: Service
@@ -65,7 +65,7 @@ metadata:
     app: pihole
   name: pihole-dns-tcp
   annotations:
-    metallb.universe.tf/allow-shared-ip: 192.168.1.202
+    metallb.universe.tf/allow-shared-ip: 192.168.1.x
 spec:
   selector:
     app: pihole
@@ -79,4 +79,4 @@ spec:
 status:
   loadBalancer:
     ingress:
-    - ip: 192.168.1.202
+    - ip: 192.168.1.x
