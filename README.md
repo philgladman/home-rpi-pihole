@@ -41,7 +41,7 @@ then run the following command to turn this off to free up port 53 for pihole `s
 - cd into repo `cd home-rpi-pihole`
 - Create password for pihole (replace `testpassword` with a custom password of your choice) `echo -n "testpassword" > pihole/pihole-pass`
 - after we deploy pihole, we will create a local DNS name for our pihole server, in order to acces the UI by a DNS name vs ip and port number. For now we need to update the value in our ingress file to the DNS name that you come up with. In my example, I use `pihole.phils-home.com`. You can use anything as this will only be accessible locally.
-- change pihole ingress name to your custom DNS name for pihole server `sed -i "s|pihole.phils-home.com|<your-local-dns-namme-for-pihole>|g" pihole/pihole-ingress.yaml`
+- change pihole ingress name to your custom DNS name for pihole server `sed -i "s|pihole.phils-home.com|<your-local-dns-name-for-pihole>|g" pihole/pihole-ingress.yaml`
 - change metallb ipaddress that will be used for by pihole `sed -i "s|192.168.1.x|<your-available-metallb-ip>|g" pihole/pihole-svc.yaml`
 - change timezone in pihole to your local timezone `sed -i "s|America/New_York|<your-local-timezone>|g" pihole/pihole-cm.yaml`
 - Deploy pihole `kubectl apply -k .` 
